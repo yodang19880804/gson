@@ -35,11 +35,16 @@ public class DefaultInetAddressTypeAdapterTest extends TestCase {
   }
   
   public void testInetAddressSerializationAndDeserialization() throws Exception {
+	// InetAddress对象序列化
     InetAddress address = InetAddress.getByName("8.8.8.8");
     String jsonAddress = gson.toJson(address);
+    
+    // 注意jsonAddress的值前后都带有双引号
     assertEquals("\"8.8.8.8\"", jsonAddress);
     
+    // jsonAddress字符串反序列化为InetAddress对象
     InetAddress value = gson.fromJson(jsonAddress, InetAddress.class);
     assertEquals(value, address);
   } 
+  
 }
