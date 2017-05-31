@@ -23,11 +23,14 @@ import junit.framework.TestCase;
 
 /**
  * @author Jesse Wilson
+ * 
+ * 反序列化字符串可以添加注释（在某种情况下可能会有帮助）
  */
 public final class CommentsTest extends TestCase {
 
   /**
    * Test for issue 212.
+   * 
    */
   public void testParseComments() {
     String json = "[\n"
