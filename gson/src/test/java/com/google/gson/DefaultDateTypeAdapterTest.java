@@ -46,17 +46,17 @@ public class DefaultDateTypeAdapterTest extends TestCase {
     Locale.setDefault(locale);
     try {
       assertFormatted("Jan 1, 1970 12:00:00 AM", new DefaultDateTypeAdapter(Date.class));
+      
+      // Date但不包括Time格式化的日期输出，并且根据参数输出结果不同
       assertFormatted("1/1/70", new DefaultDateTypeAdapter(Date.class, DateFormat.SHORT));
       assertFormatted("Jan 1, 1970", new DefaultDateTypeAdapter(Date.class, DateFormat.MEDIUM));
       assertFormatted("January 1, 1970", new DefaultDateTypeAdapter(Date.class, DateFormat.LONG));
-      assertFormatted("1/1/70 12:00 AM",
-          new DefaultDateTypeAdapter(DateFormat.SHORT, DateFormat.SHORT));
-      assertFormatted("Jan 1, 1970 12:00:00 AM",
-          new DefaultDateTypeAdapter(DateFormat.MEDIUM, DateFormat.MEDIUM));
-      assertFormatted("January 1, 1970 12:00:00 AM UTC",
-          new DefaultDateTypeAdapter(DateFormat.LONG, DateFormat.LONG));
-      assertFormatted("Thursday, January 1, 1970 12:00:00 AM UTC",
-          new DefaultDateTypeAdapter(DateFormat.FULL, DateFormat.FULL));
+      
+      // Date包括Time格式化的日期输出，并且根据参数输出结果不同
+      assertFormatted("1/1/70 12:00 AM", new DefaultDateTypeAdapter(DateFormat.SHORT, DateFormat.SHORT));
+      assertFormatted("Jan 1, 1970 12:00:00 AM", new DefaultDateTypeAdapter(DateFormat.MEDIUM, DateFormat.MEDIUM));
+      assertFormatted("January 1, 1970 12:00:00 AM UTC", new DefaultDateTypeAdapter(DateFormat.LONG, DateFormat.LONG));
+      assertFormatted("Thursday, January 1, 1970 12:00:00 AM UTC", new DefaultDateTypeAdapter(DateFormat.FULL, DateFormat.FULL));
     } finally {
       TimeZone.setDefault(defaultTimeZone);
       Locale.setDefault(defaultLocale);
@@ -162,6 +162,7 @@ public class DefaultDateTypeAdapterTest extends TestCase {
   }
 
   private void assertFormatted(String formatted, DefaultDateTypeAdapter adapter) {
+	//java.util.Date.Date(long date)	date变量就是指离这个基点的微秒数，零微秒就是基点本身
     assertEquals(toLiteral(formatted), adapter.toJson(new Date(0)));
   }
 
