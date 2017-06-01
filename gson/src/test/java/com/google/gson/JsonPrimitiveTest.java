@@ -46,6 +46,7 @@ public class JsonPrimitiveTest extends TestCase {
     json = new JsonPrimitive("true");
     assertTrue(json.getAsBoolean());
 
+    //注意此处忽略大小写
     json = new JsonPrimitive("TrUe");
     assertTrue(json.getAsBoolean());
 
@@ -64,12 +65,18 @@ public class JsonPrimitiveTest extends TestCase {
     JsonPrimitive json = new JsonPrimitive("1");
 
     assertFalse(json.isNumber());
+    
+    //第三个参数为偏差量（双精度）
     assertEquals(1D, json.getAsDouble(), 0.00001);
+    
+    //第三个参数为偏差量（单精度）
     assertEquals(1F, json.getAsFloat(), 0.00001);
+    
     assertEquals(1, json.getAsInt());
     assertEquals(1L, json.getAsLong());
     assertEquals((short) 1, json.getAsShort());
     assertEquals((byte) 1, json.getAsByte());
+    
     assertEquals(new BigInteger("1"), json.getAsBigInteger());
     assertEquals(new BigDecimal("1"), json.getAsBigDecimal());
   }
@@ -80,12 +87,14 @@ public class JsonPrimitiveTest extends TestCase {
     assertEquals('a', json.getAsCharacter());
     assertEquals("abc", json.getAsString());
 
+    // 如果JsonPrimitive构造函数中传入的参数对象是字符对象的话，在内部会强制转换为字符串对象
     json = new JsonPrimitive('z');
     assertTrue(json.isString());
     assertEquals('z', json.getAsCharacter());
     assertEquals("z", json.getAsString());
   }
 
+  //测试指数
   public void testExponential() throws Exception {
     JsonPrimitive json = new JsonPrimitive("1E+7");
 
