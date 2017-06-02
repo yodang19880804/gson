@@ -46,6 +46,8 @@ import junit.framework.TestCase;
 /**
  * Functional tests for Json serialization and deserialization of collections.
  *
+ * 对集合进行序列化和反序列化的功能测试
+ * 
  * @author Inderjeet Singh
  * @author Joel Leitch
  */

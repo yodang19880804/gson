@@ -33,6 +33,8 @@ import java.util.Collection;
 /**
  * Functional tests for Json serialization and deserialization of arrays.
  *
+ * 对数组进行序列化和反序列化的功能测试
+ *
  * @author Inderjeet Singh
  * @author Joel Leitch
  */
