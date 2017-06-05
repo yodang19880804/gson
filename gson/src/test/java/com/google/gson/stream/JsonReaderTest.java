@@ -77,6 +77,8 @@ public final class JsonReaderTest extends TestCase {
         "{\"a\": [\"one\", \"two\", \"three\"], \"b\": 123}"));
     reader.beginObject();
     assertEquals("a", reader.nextName());
+    
+    //递归地跳过下一个值。如果它是一个对象或数组，则将跳过所有嵌套元素
     reader.skipValue();
     assertEquals("b", reader.nextName());
     assertEquals(123, reader.nextInt());
