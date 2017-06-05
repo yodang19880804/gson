@@ -45,6 +45,7 @@ public class NullObjectAndFieldTest extends TestCase {
   @Override
   protected void setUp() throws Exception {
     super.setUp();
+    //配置Gson支持序列化空字段
     gsonBuilder = new GsonBuilder().serializeNulls();
   }
 

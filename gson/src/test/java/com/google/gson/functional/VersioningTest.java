@@ -64,6 +64,8 @@ public class VersioningTest extends TestCase {
   public void testVersionedClassesSerialization() {
     Gson gson = builder.setVersion(1.0).create();
     String json1 = gson.toJson(new Version1());
+    
+    //Version1_1类是Version1类的子类
     String json2 = gson.toJson(new Version1_1());
     assertEquals(json1, json2);
   }
@@ -82,6 +84,12 @@ public class VersioningTest extends TestCase {
 
   public void testIgnoreLaterVersionClassSerialization() {
     Gson gson = builder.setVersion(1.0).create();
+    
+    /**
+     * 注意Version1_2类的注解 @Since(1.2)
+     * 
+     * 则Version1_2类在1.2版本之后才能被序列化
+     */
     assertEquals("null", gson.toJson(new Version1_2()));
   }
 
@@ -112,6 +120,7 @@ public class VersioningTest extends TestCase {
     assertEquals(expected, actual);
   }
 
+  // since相当于大于等于，而until相等于小于
   public void testVersionedGsonMixingSinceAndUntilSerialization() {
     Gson gson = builder.setVersion(1.0).create();
     SinceUntilMixing target = new SinceUntilMixing();
@@ -127,19 +136,23 @@ public class VersioningTest extends TestCase {
     assertFalse(json.contains("\"b\":" + B));
   }
 
+  //since相当于大于等于，而until相等于小于
   public void testVersionedGsonMixingSinceAndUntilDeserialization() {
     String json = "{\"a\":5,\"b\":6}";
     Gson gson = builder.setVersion(1.0).create();
+    //1.0<1.1 符合since
     SinceUntilMixing result = gson.fromJson(json, SinceUntilMixing.class);
     assertEquals(5, result.a);
     assertEquals(B, result.b);
 
     gson = builder.setVersion(1.2).create();
+    //1.0<1.2<1.3 符合since和until
     result = gson.fromJson(json, SinceUntilMixing.class);
     assertEquals(5, result.a);
     assertEquals(6, result.b);
 
     gson = builder.setVersion(1.3).create();
+    //1.3 = 1.3 注意until不包含自己
     result = gson.fromJson(json, SinceUntilMixing.class);
     assertEquals(5, result.a);
     assertEquals(B, result.b);

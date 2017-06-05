@@ -38,7 +38,7 @@ public class ExposeFieldsTest extends TestCase {
   protected void setUp() throws Exception {
     super.setUp();
     gson = new GsonBuilder()
-        .excludeFieldsWithoutExposeAnnotation()
+        .excludeFieldsWithoutExposeAnnotation() //排除所有没有@Expose注解的字段
         .registerTypeAdapter(SomeInterface.class, new SomeInterfaceInstanceCreator())
         .create();
   }

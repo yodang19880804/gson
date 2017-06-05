@@ -30,6 +30,7 @@ public final class JsonArrayTest extends TestCase {
   }
 
   public void testEqualsNonEmptyArray() {
+	 // JsonArray 的父类为JsonElement
     JsonArray a = new JsonArray();
     JsonArray b = new JsonArray();
 

@@ -46,6 +46,7 @@ public class GsonBuilderTest extends TestCase {
   }
 
   public void testExcludeFieldsWithModifiers() {
+	 // 序列化时排除private和volatile字段
     Gson gson = new GsonBuilder()
         .excludeFieldsWithModifiers(Modifier.VOLATILE, Modifier.PRIVATE)
         .create();
@@ -75,6 +76,7 @@ public class GsonBuilderTest extends TestCase {
   }
 
   public void testTransientFieldExclusion() {
+	// 序列化时不排除任何字段
     Gson gson = new GsonBuilder()
         .excludeFieldsWithModifiers()
         .create();

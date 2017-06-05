@@ -84,6 +84,7 @@ public class TestTypes {
       return obj;
     }
   }
+  
   public static class SubSerializer implements JsonSerializer<Sub> {
     public static final String NAME = SubSerializer.class.getSimpleName(); 
     @Override

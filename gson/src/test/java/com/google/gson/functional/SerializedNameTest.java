@@ -44,6 +44,7 @@ public final class SerializedNameTest extends TestCase {
   }
 
   private static final class MyClass {
+	// 一个字段在序列化时只能有一个值，但是可以指定多个反序列化替代值
     @SerializedName("name") String a;
     @SerializedName(value="name1", alternate={"name2", "name3"}) String b;
     MyClass(String a, String b) {
